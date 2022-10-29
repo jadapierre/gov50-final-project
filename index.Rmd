@@ -11,4 +11,13 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to voting patterns of the Boston City Council. As a Boston native who spent the entire summer working at city hall, sitting in at meetings, so I find this topic to be personal and meaningful. I'm thinking about using their voting record from 2021.
+I am interested in exploring data related to voting patterns of the Boston City Council. More specifically, I am interested in looking at the voting patterns among the council members of color and among the white council members. As a Black Boston native who spent the entire summer working at city hall and sitting in at meetings, I find this topic to be personal and meaningful. I'm thinking about using their voting record from 2022.
+
+## Second milestone
+
+```{r}
+library(tidyverse)
+read_csv("citycouncil.csv")
+```
+
+My research question is what variable affects the Boston City Council's voting pattern. My hypothesis is that race affects the Boston City Council's voting pattern. I believe this to be true as looking at this variable, non-white and white appears to polarize the data the most in comparison to other variables. The variables I am using are race (non-white and white), age, district (city councilor at large or city councilor representing one district), and gender. The outcome variable of interest is that race affects the data the most. I measured the outcome variable by observing the patterns in the dataset.

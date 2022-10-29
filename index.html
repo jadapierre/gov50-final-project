@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["citycouncil.csv","citycouncil.numbers","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1518,8 +1518,34 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <div class="d-article">
 <h2 id="project-thoughts">Project thoughts</h2>
-<p>I am interested in exploring data related to voting patterns of the Boston City Council. As a Boston native who spent the entire summer working at city hall, sitting in at meetings, so I find this topic to be personal and meaningful. I’m thinking about using their voting record from 2021.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>I am interested in exploring data related to voting patterns of the Boston City Council. More specifically, I am interested in looking at the voting patterns among the council members of color and among the white council members. As a Black Boston native who spent the entire summer working at city hall and sitting in at meetings, I find this topic to be personal and meaningful. I’m thinking about using their voting record from 2022.</p>
+<h2 id="second-milestone">Second milestone</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"citycouncil.csv"</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 13 × 7
+   `City Council`           2022-…¹ 2022-…²  Race   Age Distr…³ Gender
+   &lt;chr&gt;                      &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Ricardo Arroyo                 1       0     1    35       0      0
+ 2 Frank Baker                    1       1     0    54       0      0
+ 3 Kenzie Bok                     1       0     0    33       0      1
+ 4 Liz Breadon                    1       0     0    NA       0      1
+ 5 Gabriela Coletta              NA       0     0    NA       0      1
+ 6 Michael Flaherty               0       1     0    53       1      0
+ 7 Ed Flynn                       0       1     0    NA       0      0
+ 8 Tania Fernandes Anderson       1       0     1    43       0      1
+ 9 Kendra Lara                    1       0     1    NA       0      1
+10 Ruthzee Louijeune              1       0     1    35       1      1
+11 Julia Meija                    1      NA     1    51       1      1
+12 Erin Murphy                    0       1     0    52       1      1
+13 Brian Worrell                  1       1     1    39       0      0
+# … with abbreviated variable names ¹​`2022-0618`, ²​`2022-0265`,
+#   ³​District</code></pre>
+</div>
+<p>My research question is what variable affects the Boston City Council’s voting pattern. My hypothesis is that race affects the Boston City Council’s voting pattern. I believe this to be true as looking at this variable, non-white and white appears to polarize the data the most in comparison to other variables. The variables I am using are race (non-white and white), age, district (city councilor at large or city councilor representing one district), and gender. The outcome variable of interest is that race affects the data the most. I measured the outcome variable by observing the patterns in the dataset.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
