@@ -7,7 +7,7 @@ output:
     self_contained: false
 ---
 
-This dataset from New York's City Council. Data.gov states "This report denotes statistics for recommended special education services by primary program and related services categorized by students who are fully, partially or not receiving services. The statistics are aggregated by program type, superintendent, district and school."
+This dataset is from New York's City Council. It displays the statistics for the recommended special education services and other related services by students who are fully receiving, partially receiving, or not receiving services at all. Moreover, the dataset is composed of program type, superintendent, district and school.
 
 ```{r}
 library(tidyverse)
