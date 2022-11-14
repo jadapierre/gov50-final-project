@@ -7,17 +7,57 @@ output:
     self_contained: false
 ---
 
-
-
-## Project thoughts
-
-I am interested in exploring data related to voting patterns of the Boston City Council. More specifically, I am interested in looking at the voting patterns among the council members of color and among the white council members. As a Black Boston native who spent the entire summer working at city hall and sitting in at meetings, I find this topic to be personal and meaningful. I'm thinking about using their voting record from 2022.
-
-## Second milestone
+This dataset from New York's City Council. Data.gov states "This report denotes statistics for recommended special education services by primary program and related services categorized by students who are fully, partially or not receiving services. The statistics are aggregated by program type, superintendent, district and school."
 
 ```{r}
 library(tidyverse)
-read_csv("citycouncil.csv")
+library(dplyr)
+ccreport2021 <- read_csv("ccreport2021.csv")
+ccreport2021
 ```
 
-My research question is what variable affects the Boston City Council's voting pattern. My hypothesis is that race affects the Boston City Council's voting pattern. I believe this to be true as looking at this variable, non-white and white appears to polarize the data the most in comparison to other variables. The variables I am using are race (non-white and white), age, district (city councilor at large or city councilor representing one district), and gender. The outcome variable of interest is that race affects the data the most. I measured the outcome variable by observing the patterns in the dataset.
+```{r}
+ccreport2021 <- ccreport2021 |>
+  rename(primpprogramtype = `Primary Program Type`,
+         fully_receiving = `Fully Receiving`,
+         fully_receivingperc = `Percent Fully Receiving`,
+         partially_receiving = `Partially Receiving`,
+         partially_receivingperc = `Percent Partially Receiving`,
+         not_receiving = `Not Receiving`,
+         not_receivingperc = `Percent Not Receiving`) |>
+  filter(primpprogramtype == c("Integrated Co-Teaching Services", "SETSS", "Special Class"))
+ccreport2021
+```
+
+```{r}
+ccreport2021 |>
+  ggplot(mapping = aes(x = primpprogramtype,
+                     y = fully_receivingperc)) +
+  geom_col() +
+  labs(x = "Primary Program Type",
+       y = "Fully Receiving Percent",
+       title = "Percent of Fully Receiving Students per Program")
+```
+
+
+```{r}
+ccreport2021 |>
+  ggplot(mapping = aes(x = primpprogramtype,
+                     y = partially_receivingperc)) +
+  geom_col() +
+  labs(x = "Primary Program Type",
+       y = "Partially Receiving Percent",
+       title = "Percent of Partially Receiving Students per Program")
+```
+
+
+```{r}
+ccreport2021 |>
+  ggplot(mapping = aes(x = primpprogramtype,
+                     y = not_receivingperc)) +
+  geom_col() +
+  labs(x = "Primary Program Type",
+       y = "Not Receiving Percent",
+       title = "Percent of Not Receiving Students per Program")
+```
+
