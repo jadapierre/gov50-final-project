@@ -7,21 +7,45 @@ output:
     self_contained: false
 ---
 
-I am interested in exploring data from the U.S. Census revolving around voting patterns and race and ethnicity. The dataset includes information regarding state, race and ethnicity, total estimated population (rounded) and its margin of error, and citizenship status for U.S. citizens in that geographic area and group (rounded) and its margin of error.
+I am interested in exploring data from the American Community Survey from the U.S. Census revolving around voting patterns and race and ethnicity. The dataset includes information regarding state, race and ethnicity, total estimated population (rounded) and its margin of error, and citizenship status for U.S. citizens in that geographic area and group (rounded) and its margin of error.
 
-Thus, my research question is as follows: What are the racial voting trends in the Northeast compared to the Southeast from 2013-2017? I am specifically interested in exploring this question because of how the politics differ in these two regions. Considering during 2013-2017, the U.S. had one Democratic president followed by a Republican president, I wonder if there are similarities or differences between the two regions. Furthermore, my initial hypothesis is that despite one's race/ethnicity in the two regions, voting trends will remain similar.
+Thus, my research question is as follows: What is the relationship between the Latinos and Asians who are able to vote?
 
-In order to answer this question, I will define the Northeast and Southeast regions by states.
-
-Northeast: Conneticut, Delaware, District of Columbia, Maine, Maryland, Massachusetts, New Hampshire, New Jersey, New York, Pennsylanvia, Rhode Island, and Vermont.
-Southeast: Alabama, Arkansas, Florida, Georgia, Kentucky, Louisiana, Mississippi, North Carolina, South Carolina, Tennessee.
-
-Data: The explanatory variable in the dataset is region as it used to predict the outcome variable which is the voting trend among a racial/ethnic group.
+dependent variable: proportion of citizens
+ind. variable: total population
+control: proportion over 18 (CVAP)
 
 ```{r}
 library(tidyverse)
 library(dbplyr)
-nation <- read.csv("nation.csv")
-state <- read.csv("state.csv")
+state <- read.csv("state.csv") |>
+  select(!ends_with("MOE"),
+         -GEOID, -LNNUMBER) |>
+  filter(LNTITLE %in% c("Hispanic or Latino", "Asian Alone")) |>
+  mutate(LNTITLE = case_when(LNTITLE == "Hispanic or Latino" ~ "Latino",
+                             LNTITLE == "Asian Alone" ~ "Asian"))
+state
+```
+
+```{r}
+cvap_data <- state |>
+  pivot_wider(
+    names_from = LNTITLE,
+    values_from = c(TOT_EST, ADU_EST, CIT_EST, CVAP_EST)
+  ) |>
+  mutate(CVAP_prop_Latino = CVAP_EST_Latino/TOT_EST_Latino) |>
+  mutate(CVAP_prop_Asian = CVAP_EST_Asian/TOT_EST_Asian)
+cvap_data
+```
+
+```{r}
+cvap_data |>
+  ggplot(aes(x = CVAP_prop_Latino,
+                     y = CVAP_prop_Asian)) +
+  geom_point() +
+  geom_smooth() +
+  labs(x = "Total Proportion of Latinos that can vote",
+       y = "Total Proportion of Asians that can vote",
+       title = "Relationship between Asians and Latinos that can vote")
 ```
 
