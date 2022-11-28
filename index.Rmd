@@ -85,8 +85,8 @@ summary(lm(CVAP_prop_Asian ~ CVAP_prop_Latino, data = cvap_data))$coefficients
 
 ```{r}
 cvap_data |>
-  ggplot(aes(x = ,
-             y = ))
+  ggplot(aes(x = CVAP_prop_Latino,
+             y = CVAP_prop_Asian))
 ```
 
 ## Conclusion
