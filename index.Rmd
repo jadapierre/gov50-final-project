@@ -69,7 +69,7 @@ cvap_data |>
        title = "Relationship Between Asians and Latinos that Can Vote")
 ```
 
-##Regression
+##Regression Results
 
 ```{r}
 summary(lm(CVAP_prop_Asian ~ CVAP_prop_Latino, data = cvap_data))$coefficients
