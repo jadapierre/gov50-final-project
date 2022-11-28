@@ -54,7 +54,7 @@ cvap_data
 ```{r}
 cvap_data |>
   ggplot(aes(x = CVAP_prop_Asian)) +
-  geom_histogram()
+  geom_histogram(fill = "lightpink1")
 ```
 
 ## Results
@@ -76,6 +76,14 @@ cvap_data |>
 
 ```{r}
 summary(lm(CVAP_prop_Asian ~ CVAP_prop_Latino, data = cvap_data))$coefficients
+```
+
+## Multiple Regression Plot
+
+```{r}
+cvap_data |>
+  ggplot(aes(x = ,
+             y = ))
 ```
 
 ## Conclusion
