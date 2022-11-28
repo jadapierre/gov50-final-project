@@ -56,6 +56,9 @@ cvap_data |>
   ggplot(aes(x = CVAP_prop_Asian)) +
   geom_histogram()
 ```
+
+## Results
+
 ## Plot Summary
 
 ```{r}
@@ -74,3 +77,5 @@ cvap_data |>
 ```{r}
 summary(lm(CVAP_prop_Asian ~ CVAP_prop_Latino, data = cvap_data))$coefficients
 ```
+
+## Conclusion
