@@ -7,57 +7,21 @@ output:
     self_contained: false
 ---
 
-This dataset is from New York's City Council. It displays the statistics for the recommended special education services and other related services by students who are fully receiving, partially receiving, or not receiving services at all. Moreover, the dataset is composed of program type, superintendent, district and school. 
+I am interested in exploring data from the U.S. Census revolving around voting patterns and race and ethnicity. The dataset includes information regarding state, race and ethnicity, total estimated population (rounded) and its margin of error, and citizenship status for U.S. citizens in that geographic area and group (rounded) and its margin of error.
+
+Thus, my research question is as follows: What are the racial voting trends in the Northeast compared to the Southeast from 2013-2017? I am specifically interested in exploring this question because of how the politics differ in these two regions. Considering during 2013-2017, the U.S. had one Democratic president followed by a Republican president, I wonder if there are similarities or differences between the two regions. Furthermore, my initial hypothesis is that despite one's race/ethnicity in the two regions, voting trends will remain similar.
+
+In order to answer this question, I will define the Northeast and Southeast regions by states.
+
+Northeast: Conneticut, Delaware, District of Columbia, Maine, Maryland, Massachusetts, New Hampshire, New Jersey, New York, Pennsylanvia, Rhode Island, and Vermont.
+Southeast: Alabama, Arkansas, Florida, Georgia, Kentucky, Louisiana, Mississippi, North Carolina, South Carolina, Tennessee.
+
+Data: The explanatory variable in the dataset is region as it used to predict the outcome variable which is the voting trend among a racial/ethnic group.
 
 ```{r}
 library(tidyverse)
-library(dplyr)
-ccreport2021 <- read_csv("ccreport2021.csv")
-ccreport2021
-```
-
-```{r}
-ccreport2021 <- ccreport2021 |>
-  rename(primpprogramtype = `Primary Program Type`,
-         fully_receiving = `Fully Receiving`,
-         fully_receivingperc = `Percent Fully Receiving`,
-         partially_receiving = `Partially Receiving`,
-         partially_receivingperc = `Percent Partially Receiving`,
-         not_receiving = `Not Receiving`,
-         not_receivingperc = `Percent Not Receiving`) |>
-  filter(primpprogramtype == c("Integrated Co-Teaching Services", "SETSS", "Special Class"))
-ccreport2021
-```
-
-```{r}
-ccreport2021 |>
-  ggplot(mapping = aes(x = primpprogramtype,
-                     y = fully_receivingperc)) +
-  geom_col() +
-  labs(x = "Primary Program Type",
-       y = "Fully Receiving Percent",
-       title = "Percent of Fully Receiving Students per Program")
-```
-
-
-```{r}
-ccreport2021 |>
-  ggplot(mapping = aes(x = primpprogramtype,
-                     y = partially_receivingperc)) +
-  geom_col() +
-  labs(x = "Primary Program Type",
-       y = "Partially Receiving Percent",
-       title = "Percent of Partially Receiving Students per Program")
-```
-
-
-```{r}
-ccreport2021 |>
-  ggplot(mapping = aes(x = primpprogramtype,
-                     y = not_receivingperc)) +
-  geom_col() +
-  labs(x = "Primary Program Type",
-       y = "Not Receiving Percent",
-       title = "Percent of Not Receiving Students per Program")
+library(dbplyr)
+nation <- read.csv("nation.csv")
+state <- read.csv("state.csv")
 ```
 
