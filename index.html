@@ -1517,9 +1517,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<p>##Introduction</p>
+<h2 id="introduction">Introduction</h2>
 <p>I am interested in exploring data from the American Community Survey from the U.S. Census revolving around the citizen voting age population and race and ethnicity. The data set includes information regarding U.S. states, more specifically racial demographics and within it, who is eligible to vote. My research question is as follows: What is the relationship between the Latinos and Asians who are able to vote?</p>
-<p>##Data and Research Design</p>
+<h2 id="data-and-research-design">Data and Research Design</h2>
 <p>My final project will be a longitudinal observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My outcome variable is the proportion of Asians that can vote. Lastly, my control variables are the total amount of Latinos in the states and the total amount of Asians in the states.</p>
 <p>here are the definitions of the following variables I will use:</p>
 <p>GEONAME: The name of the geographic area, specifically states across the U.S.
@@ -1574,7 +1574,7 @@ CVAP_prop_Asian: The rounded estimate of the total number of Asians that are Uni
 #   variable names ¹​TOT_EST_Asian, ²​TOT_EST_Latino, ³​ADU_EST_Asian,
 #   ⁴​ADU_EST_Latino, ⁵​CIT_EST_Asian, ⁶​CIT_EST_Latino, ⁷​CVAP_EST_Asian</code></pre>
 </div>
-<p>##Distribution Plot</p>
+<h2 id="distribution-plot">Distribution Plot</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>cvap_data</span> <span class='op'>|&gt;</span></span>
@@ -1583,7 +1583,7 @@ CVAP_prop_Asian: The rounded estimate of the total number of Asians that are Uni
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
 </div>
-<p>##Plot Summary</p>
+<h2 id="plot-summary">Plot Summary</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>cvap_data</span> <span class='op'>|&gt;</span></span>
@@ -1597,7 +1597,7 @@ CVAP_prop_Asian: The rounded estimate of the total number of Asians that are Uni
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
 </div>
-<p>##Regression Results</p>
+<h2 id="regression-results">Regression Results</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>CVAP_prop_Asian</span> <span class='op'>~</span> <span class='va'>CVAP_prop_Latino</span>, data <span class='op'>=</span> <span class='va'>cvap_data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span></span></code></pre>

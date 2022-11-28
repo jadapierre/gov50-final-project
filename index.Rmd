@@ -6,11 +6,11 @@ output:
   distill::distill_article:
     self_contained: false
 ---
-##Introduction
+## Introduction
 
 I am interested in exploring data from the American Community Survey from the U.S. Census revolving around the citizen voting age population and race and ethnicity. The data set includes information regarding U.S. states, more specifically racial demographics and within it, who is eligible to vote. My research question is as follows: What is the relationship between the Latinos and Asians who are able to vote?
 
-##Data and Research Design
+## Data and Research Design
 
 My final project will be a longitudinal observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My outcome variable is the proportion of Asians that can vote. Lastly, my control variables are the total amount of Latinos in the states and the total amount of Asians in the states.
 
@@ -49,14 +49,14 @@ cvap_data <- state |>
   mutate(CVAP_prop_Asian = CVAP_EST_Asian/TOT_EST_Asian)
 cvap_data
 ```
-##Distribution Plot
+## Distribution Plot
 
 ```{r}
 cvap_data |>
   ggplot(aes(x = CVAP_prop_Asian)) +
   geom_histogram()
 ```
-##Plot Summary
+## Plot Summary
 
 ```{r}
 cvap_data |>
@@ -69,7 +69,7 @@ cvap_data |>
        title = "Relationship Between Asians and Latinos that Can Vote")
 ```
 
-##Regression Results
+## Regression Results
 
 ```{r}
 summary(lm(CVAP_prop_Asian ~ CVAP_prop_Latino, data = cvap_data))$coefficients
