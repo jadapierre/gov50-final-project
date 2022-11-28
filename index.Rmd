@@ -72,7 +72,7 @@ cvap_data |>
   geom_smooth() +
   labs(x = "Total Proportion of Latinos that Can Vote",
        y = "Total Proportion of Asians that Can Vote",
-       title = "Relationship Between Asians and Latinos that Can Vote")
+       title = "Relationship Between Latinos and Asians that Can Vote")
 ```
 
 ## Regression Results
