@@ -6,14 +6,27 @@ output:
   distill::distill_article:
     self_contained: false
 ---
+##Introduction
 
-I am interested in exploring data from the American Community Survey from the U.S. Census revolving around voting patterns and race and ethnicity. The dataset includes information regarding state, race and ethnicity, total estimated population (rounded) and its margin of error, and citizenship status for U.S. citizens in that geographic area and group (rounded) and its margin of error.
+I am interested in exploring data from the American Community Survey from the U.S. Census revolving around the citizen voting age population and race and ethnicity. The data set includes information regarding U.S. states, more specifically racial demographics and within it, who is eligible to vote. My research question is as follows: What is the relationship between the Latinos and Asians who are able to vote?
 
-Thus, my research question is as follows: What is the relationship between the Latinos and Asians who are able to vote?
+##Data and Research Design
 
-dependent variable: proportion of citizens
-ind. variable: total population
-control: proportion over 18 (CVAP)
+My final project will be a longitudinal observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My outcome variable is the proportion of Asians that can vote. Lastly, my control variables are the total amount of Latinos in the states and the total amount of Asians in the states.
+
+here are the definitions of the following variables I will use:
+
+GEONAME: The name of the geographic area, specifically states across the U.S.
+TOT_EST_Asian: The rounded estimate of the total number of Asians in a geographical area.
+TOT_EST_Latino: The rounded estimate of the total number of Latinos in a geographical area.
+ADU_EST_Asian: The rounded estimate of the total number of people 18 years of age or older for Asians in a specific state.
+ADU_EST_Latino: The rounded estimate of the total number of people 18 years of age or older for Latinos in a specific state.
+CIT_EST_Asian: The rounded estimate of the total number of United States citizens for Asians in a geographical area.
+CIT_EST_Latino: The rounded estimate of the total number of United States citizens for Latinos in a geographical area.
+CVAP_EST_Asian: The rounded estimate of the total number of United States citizens 18 years of age or older for Asians in a specific state.
+CVAP_EST_Latino: The rounded estimate of the total number of United States citizens 18 years of age or older for Latinos in a specific state.
+CVAP_prop_Latino: The rounded estimate of the total number of Latinos that are United States citizens 18 years of age or older that can vote.
+CVAP_prop_Asian: The rounded estimate of the total number of Asians that are United States citizens 18 years of age or older that can vote.
 
 ```{r}
 library(tidyverse)
@@ -24,7 +37,6 @@ state <- read.csv("state.csv") |>
   filter(LNTITLE %in% c("Hispanic or Latino", "Asian Alone")) |>
   mutate(LNTITLE = case_when(LNTITLE == "Hispanic or Latino" ~ "Latino",
                              LNTITLE == "Asian Alone" ~ "Asian"))
-state
 ```
 
 ```{r}
@@ -37,6 +49,14 @@ cvap_data <- state |>
   mutate(CVAP_prop_Asian = CVAP_EST_Asian/TOT_EST_Asian)
 cvap_data
 ```
+##Distribution Plot
+
+```{r}
+cvap_data |>
+  ggplot(aes(x = CVAP_prop_Asian)) +
+  geom_histogram()
+```
+##Plot Summary
 
 ```{r}
 cvap_data |>
@@ -44,8 +64,13 @@ cvap_data |>
                      y = CVAP_prop_Asian)) +
   geom_point() +
   geom_smooth() +
-  labs(x = "Total Proportion of Latinos that can vote",
-       y = "Total Proportion of Asians that can vote",
-       title = "Relationship between Asians and Latinos that can vote")
+  labs(x = "Total Proportion of Latinos that Can Vote",
+       y = "Total Proportion of Asians that Can Vote",
+       title = "Relationship Between Asians and Latinos that Can Vote")
 ```
 
+##Regression
+
+```{r}
+summary(lm(CVAP_prop_Asian ~ CVAP_prop_Latino, data = cvap_data))$coefficients
+```

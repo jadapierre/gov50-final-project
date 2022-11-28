@@ -1517,11 +1517,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<p>I am interested in exploring data from the American Community Survey from the U.S. Census revolving around voting patterns and race and ethnicity. The dataset includes information regarding state, race and ethnicity, total estimated population (rounded) and its margin of error, and citizenship status for U.S. citizens in that geographic area and group (rounded) and its margin of error.</p>
-<p>Thus, my research question is as follows: What is the relationship between the Latinos and Asians who are able to vote?</p>
-<p>dependent variable: proportion of citizens
-ind. variable: total population
-control: proportion over 18 (CVAP)</p>
+<p>##Introduction</p>
+<p>I am interested in exploring data from the American Community Survey from the U.S. Census revolving around the citizen voting age population and race and ethnicity. The data set includes information regarding U.S. states, more specifically racial demographics and within it, who is eligible to vote. My research question is as follows: What is the relationship between the Latinos and Asians who are able to vote?</p>
+<p>##Data and Research Design</p>
+<p>My final project will be a longitudinal observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My outcome variable is the proportion of Asians that can vote. Lastly, my control variables are the total amount of Latinos in the states and the total amount of Asians in the states.</p>
+<p>here are the definitions of the following variables I will use:</p>
+<p>GEONAME: The name of the geographic area, specifically states across the U.S.
+TOT_EST_Asian: The rounded estimate of the total number of Asians in a geographical area.
+TOT_EST_Latino: The rounded estimate of the total number of Latinos in a geographical area.
+ADU_EST_Asian: The rounded estimate of the total number of people 18 years of age or older for Asians in a specific state.
+ADU_EST_Latino: The rounded estimate of the total number of people 18 years of age or older for Latinos in a specific state.
+CIT_EST_Asian: The rounded estimate of the total number of United States citizens for Asians in a geographical area.
+CIT_EST_Latino: The rounded estimate of the total number of United States citizens for Latinos in a geographical area.
+CVAP_EST_Asian: The rounded estimate of the total number of United States citizens 18 years of age or older for Asians in a specific state.
+CVAP_EST_Latino: The rounded estimate of the total number of United States citizens 18 years of age or older for Latinos in a specific state.
+CVAP_prop_Latino: The rounded estimate of the total number of Latinos that are United States citizens 18 years of age or older that can vote.
+CVAP_prop_Asian: The rounded estimate of the total number of Asians that are United States citizens 18 years of age or older that can vote.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
@@ -1531,114 +1542,8 @@ control: proportion over 18 (CVAP)</p>
 <span>         <span class='op'>-</span><span class='va'>GEOID</span>, <span class='op'>-</span><span class='va'>LNNUMBER</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>LNTITLE</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Hispanic or Latino"</span>, <span class='st'>"Asian Alone"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>LNTITLE <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>LNTITLE</span> <span class='op'>==</span> <span class='st'>"Hispanic or Latino"</span> <span class='op'>~</span> <span class='st'>"Latino"</span>,</span>
-<span>                             <span class='va'>LNTITLE</span> <span class='op'>==</span> <span class='st'>"Asian Alone"</span> <span class='op'>~</span> <span class='st'>"Asian"</span><span class='op'>)</span><span class='op'>)</span></span>
-<span><span class='va'>state</span></span></code></pre>
+<span>                             <span class='va'>LNTITLE</span> <span class='op'>==</span> <span class='st'>"Asian Alone"</span> <span class='op'>~</span> <span class='st'>"Asian"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>                 GEONAME LNTITLE  TOT_EST  ADU_EST  CIT_EST CVAP_EST
-1                Alabama   Asian    63730    48885    40295    28160
-2                Alabama  Latino   198375   120850   138160    66010
-3                 Alaska   Asian    44940    34315    31995    22780
-4                 Alaska  Latino    50160    32655    46595    29400
-5                Arizona   Asian   210115   168125   143765   108595
-6                Arizona  Latino  2103525  1391950  1725660  1037975
-7               Arkansas   Asian    42870    32790    27145    18695
-8               Arkansas  Latino   213245   130045   148360    69695
-9             California   Asian  5473875  4465975  4254285  3347230
-10            California  Latino 15105860 10374900 11701535  7159720
-11              Colorado   Asian   163860   128030   114960    84960
-12              Colorado  Latino  1157200   767530   953335   579055
-13           Connecticut   Asian   157825   123535   101065    72955
-14           Connecticut  Latino   551915   378030   456175   289700
-15              Delaware   Asian    36455    28645    22455    15755
-16              Delaware  Latino    84795    54115    65870    36365
-17  District of Columbia   Asian    25645    23470    17435    15545
-18  District of Columbia  Latino    71830    53095    48705    31725
-19               Florida   Asian   544315   439775   397430   306245
-20               Florida  Latino  5015015  3775390  3865375  2727140
-21               Georgia   Asian   391685   302405   260025   185175
-22               Georgia  Latino   950380   598535   637680   306715
-23                Hawaii   Asian   527780   453130   455155   387050
-24                Hawaii  Latino   145380    90330   139280    84750
-25                 Idaho   Asian    22195    17350    14545    11070
-26                 Idaho  Latino   201980   123485   162500    86700
-27              Illinois   Asian   675285   537195   478250   358655
-28              Illinois  Latino  2162070  1440050  1651420   954550
-29               Indiana   Asian   138550   106360    76145    51185
-30               Indiana  Latino   441970   273500   339940   179085
-31                  Iowa   Asian    71150    54265    39400    26215
-32                  Iowa  Latino   178295   107065   137120    69440
-33                Kansas   Asian    80740    62700    51215    36285
-34                Kansas  Latino   334860   204505   256760   132245
-35              Kentucky   Asian    59635    44420    35385    24180
-36              Kentucky  Latino   152070    93135   107900    52840
-37             Louisiana   Asian    81375    63800    56340    41335
-38             Louisiana  Latino   231710   161845   165100   102355
-39                 Maine   Asian    14765    11590    10395     7625
-40                 Maine  Latino    20425    13700    18535    11970
-41              Maryland   Asian   374925   297325   272845   205445
-42              Maryland  Latino   573305   383715   377345   204900
-43         Massachusetts   Asian   431125   342930   289790   212355
-44         Massachusetts  Latino   760175   520630   620620   394400
-45              Michigan   Asian   291005   225080   181845   128305
-46              Michigan  Latino   484570   305640   407160   234455
-47             Minnesota   Asian   256815   184070   191100   126980
-48             Minnesota  Latino   284650   173215   207650   101945
-49           Mississippi   Asian    28940    22840    19545    14380
-50           Mississippi  Latino    88260    57170    63230    34090
-51              Missouri   Asian   113260    88915    71565    51310
-52              Missouri  Latino   244420   154075   195695   109455
-53               Montana   Asian     7360     6145     5025     3945
-54               Montana  Latino    36625    23110    34290    21105
-55              Nebraska   Asian    42175    31580    24185    16430
-56              Nebraska  Latino   198300   118465   147910    72320
-57                Nevada   Asian   230010   192180   179285   145520
-58                Nevada  Latino   814305   541145   609365   348735
-59         New Hampshire   Asian    33570    26295    19970    13900
-60         New Hampshire  Latino    45265    30235    38670    24185
-61            New Jersey   Asian   850725   662540   593870   431120
-62            New Jersey  Latino  1764520  1251055  1342235   863555
-63            New Mexico   Asian    28405    23450    20375    16000
-64            New Mexico  Latino  1004105   706790   898920   610410
-65              New York   Asian  1681630  1358200  1160650   879300
-66              New York  Latino  3726240  2706690  2899260  1940425
-67        North Carolina   Asian   270095   204695   175185   122205
-68        North Carolina  Latino   914790   558370   606535   273200
-69          North Dakota   Asian    10125     8095     4380     3135
-70          North Dakota  Latino    24745    15835    22520    13715
-71                  Ohio   Asian   237865   185560   143455   101225
-72                  Ohio  Latino   414490   261545   355920   208240
-73              Oklahoma   Asian    80100    62510    53270    38585
-74              Oklahoma  Latino   394880   237700   293560   144800
-75                Oregon   Asian   165520   134270   116740    89780
-76                Oregon  Latino   509505   320830   379415   199185
-77          Pennsylvania   Asian   420075   327160   281400   202475
-78          Pennsylvania  Latino   874835   570980   753795   462250
-79          Rhode Island   Asian    35645    28425    23740    17645
-80          Rhode Island  Latino   153910   103540   121315    73835
-81        South Carolina   Asian    72185    56610    49180    36400
-82        South Carolina  Latino   267400   171240   183195    93810
-83          South Dakota   Asian    11685     8440     5805     3610
-84          South Dakota  Latino    29900    17410    24925    12870
-85             Tennessee   Asian   111310    85185    71150    49650
-86             Tennessee  Latino   340065   205790   227845   104980
-87                 Texas   Asian  1237480   952685   856225   615395
-88                 Texas  Latino 10673910  7120780  8421975  5040815
-89                  Utah   Asian    67310    53360    44610    33075
-90                  Utah  Latino   409310   251915   307835   157745
-91               Vermont   Asian     9930     7935     5715     4275
-92               Vermont  Latino    11185     8100    10130     7085
-93              Virginia   Asian   521300   408800   377430   279840
-94              Virginia  Latino   749460   507310   525740   301810
-95            Washington   Asian   577920   468300   409985   316055
-96            Washington  Latino   882110   546405   664345   345645
-97         West Virginia   Asian    14085    11590     9265     7030
-98         West Virginia  Latino    27020    18550    23405    15310
-99             Wisconsin   Asian   152865   109160   109605    71195
-100            Wisconsin  Latino   380590   231770   301815   159325
-101              Wyoming   Asian     4950     3975     3165     2320
-102              Wyoming  Latino    56680    36995    48865    29535
-103          Puerto Rico   Asian     2430     2100     1530     1215
-104          Puerto Rico  Latino  3432610  2707580  3385845  2663325</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1669,6 +1574,16 @@ control: proportion over 18 (CVAP)</p>
 #   variable names ¹​TOT_EST_Asian, ²​TOT_EST_Latino, ³​ADU_EST_Asian,
 #   ⁴​ADU_EST_Latino, ⁵​CIT_EST_Asian, ⁶​CIT_EST_Latino, ⁷​CVAP_EST_Asian</code></pre>
 </div>
+<p>##Distribution Plot</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>cvap_data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>CVAP_prop_Asian</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<p>##Plot Summary</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>cvap_data</span> <span class='op'>|&gt;</span></span>
@@ -1676,11 +1591,20 @@ control: proportion over 18 (CVAP)</p>
 <span>                     y <span class='op'>=</span> <span class='va'>CVAP_prop_Asian</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Total Proportion of Latinos that can vote"</span>,</span>
-<span>       y <span class='op'>=</span> <span class='st'>"Total Proportion of Asians that can vote"</span>,</span>
-<span>       title <span class='op'>=</span> <span class='st'>"Relationship between Asians and Latinos that can vote"</span><span class='op'>)</span></span></code></pre>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Total Proportion of Latinos that Can Vote"</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>"Total Proportion of Asians that Can Vote"</span>,</span>
+<span>       title <span class='op'>=</span> <span class='st'>"Relationship Between Asians and Latinos that Can Vote"</span><span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+<p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+</div>
+<p>##Regression</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>CVAP_prop_Asian</span> <span class='op'>~</span> <span class='va'>CVAP_prop_Latino</span>, data <span class='op'>=</span> <span class='va'>cvap_data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span></span></code></pre>
+</div>
+<pre><code>                  Estimate Std. Error  t value     Pr(&gt;|t|)
+(Intercept)      0.4146608 0.04985678 8.317038 5.399427e-11
+CVAP_prop_Latino 0.1577213 0.10641241 1.482170 1.445706e-01</code></pre>
 </div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
