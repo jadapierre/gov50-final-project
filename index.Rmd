@@ -54,7 +54,10 @@ cvap_data
 ```{r}
 cvap_data |>
   ggplot(aes(x = CVAP_prop_Asian)) +
-  geom_histogram(fill = "lightpink1")
+  geom_histogram(fill = "lightpink1") +
+  labs(x = "Proportion of Asians that Can Vote",
+       y = "Count",
+       title = "Distribution Plot of Porportion of Asians that Can Vote")
 ```
 
 ## Results
