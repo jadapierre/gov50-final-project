@@ -16,17 +16,8 @@ My final project will be a longitudinal observational study. To investigate the 
 
 here are the definitions of the following variables I will use:
 
-GEONAME: The name of the geographic area, specifically states across the U.S.
-TOT_EST_Asian: The rounded estimate of the total number of Asians in a geographical area.
-TOT_EST_Latino: The rounded estimate of the total number of Latinos in a geographical area.
-ADU_EST_Asian: The rounded estimate of the total number of people 18 years of age or older for Asians in a specific state.
-ADU_EST_Latino: The rounded estimate of the total number of people 18 years of age or older for Latinos in a specific state.
-CIT_EST_Asian: The rounded estimate of the total number of United States citizens for Asians in a geographical area.
-CIT_EST_Latino: The rounded estimate of the total number of United States citizens for Latinos in a geographical area.
-CVAP_EST_Asian: The rounded estimate of the total number of United States citizens 18 years of age or older for Asians in a specific state.
-CVAP_EST_Latino: The rounded estimate of the total number of United States citizens 18 years of age or older for Latinos in a specific state.
-CVAP_prop_Latino: The rounded estimate of the total number of Latinos that are United States citizens 18 years of age or older that can vote.
-CVAP_prop_Asian: The rounded estimate of the total number of Asians that are United States citizens 18 years of age or older that can vote.
+CVAP_prop_Latino: The proportion of Latinos that are United States citizens 18 years of age or older that can vote.
+CVAP_prop_Asian: The proportion of Asians that are United States citizens 18 years of age or older that can vote.
 
 ```{r}
 library(tidyverse)
@@ -45,11 +36,15 @@ cvap_data <- state |>
     names_from = LNTITLE,
     values_from = c(TOT_EST, ADU_EST, CIT_EST, CVAP_EST)
   ) |>
-  mutate(CVAP_prop_Latino = CVAP_EST_Latino/TOT_EST_Latino) |>
-  mutate(CVAP_prop_Asian = CVAP_EST_Asian/TOT_EST_Asian)
-cvap_data
+  mutate(CVAP_prop_Latino = CVAP_EST_Latino/TOT_EST_Latino,
+         CVAP_prop_Asian = CVAP_EST_Asian/TOT_EST_Asian,
+         ADU_prop_Latino = ADU_EST_Latino/TOT_EST_Latino,
+         ADU_prop_Asian = ADU_EST_Asian/TOT_EST_Asian,
+         NONCIT_prop_Latino = (TOT_EST_Latino - CIT_EST_Latino)/TOT_EST_Latino,
+         NONCIT_prop_Asian = (TOT_EST_Asian - CIT_EST_Asian)/TOT_EST_Asian)
 ```
-## Distribution Plot
+
+### Distribution Plot
 
 ```{r}
 cvap_data |>
@@ -62,31 +57,36 @@ cvap_data |>
 
 ## Results
 
-## Plot Summary
+### Plot Summary
 
 ```{r}
 cvap_data |>
   ggplot(aes(x = CVAP_prop_Latino,
                      y = CVAP_prop_Asian)) +
   geom_point() +
-  geom_smooth() +
+  geom_smooth(color = "pink") +
   labs(x = "Total Proportion of Latinos that Can Vote",
        y = "Total Proportion of Asians that Can Vote",
        title = "Relationship Between Latinos and Asians that Can Vote")
 ```
 
-## Regression Results
+### Regression Results
 
 ```{r}
-summary(lm(CVAP_prop_Asian ~ CVAP_prop_Latino, data = cvap_data))$coefficients
+regresults <- summary(lm(CVAP_prop_Asian ~ CVAP_prop_Latino, data = cvap_data))$coefficients
+regresults |>
+  knitr::kable(digits = 2)
 ```
 
-## Multiple Regression Plot
+### Multiple Regression Results
 
 ```{r}
-cvap_data |>
-  ggplot(aes(x = CVAP_prop_Latino,
-             y = CVAP_prop_Asian))
+multiregresults <- summary(lm(data = cvap_data, CVAP_prop_Latino ~ ADU_prop_Latino + NONCIT_prop_Latino))$coefficients
+multiregresults |>
+  knitr::kable(digits = 2)
 ```
+
+### Statistical Significance
+
 
 ## Conclusion

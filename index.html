@@ -1522,17 +1522,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="data-and-research-design">Data and Research Design</h2>
 <p>My final project will be a longitudinal observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My outcome variable is the proportion of Asians that can vote. Lastly, my control variables are the total amount of Latinos in the states and the total amount of Asians in the states.</p>
 <p>here are the definitions of the following variables I will use:</p>
-<p>GEONAME: The name of the geographic area, specifically states across the U.S.
-TOT_EST_Asian: The rounded estimate of the total number of Asians in a geographical area.
-TOT_EST_Latino: The rounded estimate of the total number of Latinos in a geographical area.
-ADU_EST_Asian: The rounded estimate of the total number of people 18 years of age or older for Asians in a specific state.
-ADU_EST_Latino: The rounded estimate of the total number of people 18 years of age or older for Latinos in a specific state.
-CIT_EST_Asian: The rounded estimate of the total number of United States citizens for Asians in a geographical area.
-CIT_EST_Latino: The rounded estimate of the total number of United States citizens for Latinos in a geographical area.
-CVAP_EST_Asian: The rounded estimate of the total number of United States citizens 18 years of age or older for Asians in a specific state.
-CVAP_EST_Latino: The rounded estimate of the total number of United States citizens 18 years of age or older for Latinos in a specific state.
-CVAP_prop_Latino: The rounded estimate of the total number of Latinos that are United States citizens 18 years of age or older that can vote.
-CVAP_prop_Asian: The rounded estimate of the total number of Asians that are United States citizens 18 years of age or older that can vote.</p>
+<p>CVAP_prop_Latino: The proportion of Latinos that are United States citizens 18 years of age or older that can vote.
+CVAP_prop_Asian: The proportion of Asians that are United States citizens 18 years of age or older that can vote.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
@@ -1552,29 +1543,15 @@ CVAP_prop_Asian: The rounded estimate of the total number of Asians that are Uni
 <span>    names_from <span class='op'>=</span> <span class='va'>LNTITLE</span>,</span>
 <span>    values_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>TOT_EST</span>, <span class='va'>ADU_EST</span>, <span class='va'>CIT_EST</span>, <span class='va'>CVAP_EST</span><span class='op'>)</span></span>
 <span>  <span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>CVAP_prop_Latino <span class='op'>=</span> <span class='va'>CVAP_EST_Latino</span><span class='op'>/</span><span class='va'>TOT_EST_Latino</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>CVAP_prop_Asian <span class='op'>=</span> <span class='va'>CVAP_EST_Asian</span><span class='op'>/</span><span class='va'>TOT_EST_Asian</span><span class='op'>)</span></span>
-<span><span class='va'>cvap_data</span></span></code></pre>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>CVAP_prop_Latino <span class='op'>=</span> <span class='va'>CVAP_EST_Latino</span><span class='op'>/</span><span class='va'>TOT_EST_Latino</span>,</span>
+<span>         CVAP_prop_Asian <span class='op'>=</span> <span class='va'>CVAP_EST_Asian</span><span class='op'>/</span><span class='va'>TOT_EST_Asian</span>,</span>
+<span>         ADU_prop_Latino <span class='op'>=</span> <span class='va'>ADU_EST_Latino</span><span class='op'>/</span><span class='va'>TOT_EST_Latino</span>,</span>
+<span>         ADU_prop_Asian <span class='op'>=</span> <span class='va'>ADU_EST_Asian</span><span class='op'>/</span><span class='va'>TOT_EST_Asian</span>,</span>
+<span>         NONCIT_prop_Latino <span class='op'>=</span> <span class='op'>(</span><span class='va'>TOT_EST_Latino</span> <span class='op'>-</span> <span class='va'>CIT_EST_Latino</span><span class='op'>)</span><span class='op'>/</span><span class='va'>TOT_EST_Latino</span>,</span>
+<span>         NONCIT_prop_Asian <span class='op'>=</span> <span class='op'>(</span><span class='va'>TOT_EST_Asian</span> <span class='op'>-</span> <span class='va'>CIT_EST_Asian</span><span class='op'>)</span><span class='op'>/</span><span class='va'>TOT_EST_Asian</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code># A tibble: 52 × 11
-   GEONAME     TOT_E…¹ TOT_E…² ADU_E…³ ADU_E…⁴ CIT_E…⁵ CIT_E…⁶ CVAP_…⁷
-   &lt;chr&gt;         &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
- 1 Alabama       63730  1.98e5   48885  1.21e5   40295  1.38e5   28160
- 2 Alaska        44940  5.02e4   34315  3.27e4   31995  4.66e4   22780
- 3 Arizona      210115  2.10e6  168125  1.39e6  143765  1.73e6  108595
- 4 Arkansas      42870  2.13e5   32790  1.30e5   27145  1.48e5   18695
- 5 California  5473875  1.51e7 4465975  1.04e7 4254285  1.17e7 3347230
- 6 Colorado     163860  1.16e6  128030  7.68e5  114960  9.53e5   84960
- 7 Connecticut  157825  5.52e5  123535  3.78e5  101065  4.56e5   72955
- 8 Delaware      36455  8.48e4   28645  5.41e4   22455  6.59e4   15755
- 9 District o…   25645  7.18e4   23470  5.31e4   17435  4.87e4   15545
-10 Florida      544315  5.02e6  439775  3.78e6  397430  3.87e6  306245
-# … with 42 more rows, 3 more variables: CVAP_EST_Latino &lt;int&gt;,
-#   CVAP_prop_Latino &lt;dbl&gt;, CVAP_prop_Asian &lt;dbl&gt;, and abbreviated
-#   variable names ¹​TOT_EST_Asian, ²​TOT_EST_Latino, ³​ADU_EST_Asian,
-#   ⁴​ADU_EST_Latino, ⁵​CIT_EST_Asian, ⁶​CIT_EST_Latino, ⁷​CVAP_EST_Asian</code></pre>
 </div>
-<h2 id="distribution-plot">Distribution Plot</h2>
+<h3 id="distribution-plot">Distribution Plot</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>cvap_data</span> <span class='op'>|&gt;</span></span>
@@ -1587,40 +1564,100 @@ CVAP_prop_Asian: The rounded estimate of the total number of Asians that are Uni
 <p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
 </div>
 <h2 id="results">Results</h2>
-<h2 id="plot-summary">Plot Summary</h2>
+<h3 id="plot-summary">Plot Summary</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>cvap_data</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>CVAP_prop_Latino</span>,</span>
 <span>                     y <span class='op'>=</span> <span class='va'>CVAP_prop_Asian</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"pink"</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Total Proportion of Latinos that Can Vote"</span>,</span>
 <span>       y <span class='op'>=</span> <span class='st'>"Total Proportion of Asians that Can Vote"</span>,</span>
 <span>       title <span class='op'>=</span> <span class='st'>"Relationship Between Latinos and Asians that Can Vote"</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
 </div>
-<h2 id="regression-results">Regression Results</h2>
+<h3 id="regression-results">Regression Results</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>CVAP_prop_Asian</span> <span class='op'>~</span> <span class='va'>CVAP_prop_Latino</span>, data <span class='op'>=</span> <span class='va'>cvap_data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>regresults</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>CVAP_prop_Asian</span> <span class='op'>~</span> <span class='va'>CVAP_prop_Latino</span>, data <span class='op'>=</span> <span class='va'>cvap_data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span></span>
+<span><span class='va'>regresults</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>                  Estimate Std. Error  t value     Pr(&gt;|t|)
-(Intercept)      0.4146608 0.04985678 8.317038 5.399427e-11
-CVAP_prop_Latino 0.1577213 0.10641241 1.482170 1.445706e-01</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">8.32</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CVAP_prop_Latino</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">1.48</td>
+<td style="text-align: right;">0.14</td>
+</tr>
+</tbody>
+</table>
 </div>
-<h2 id="multiple-regression-plot">Multiple Regression Plot</h2>
+<h3 id="multiple-regression-results">Multiple Regression Results</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>cvap_data</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>CVAP_prop_Latino</span>,</span>
-<span>             y <span class='op'>=</span> <span class='va'>CVAP_prop_Asian</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>multiregresults</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>cvap_data</span>, <span class='va'>CVAP_prop_Latino</span> <span class='op'>~</span> <span class='va'>ADU_prop_Latino</span> <span class='op'>+</span> <span class='va'>NONCIT_prop_Latino</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span></span>
+<span><span class='va'>multiregresults</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ADU_prop_Latino</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">102.53</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NONCIT_prop_Latino</td>
+<td style="text-align: right;">-0.92</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">-174.88</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+</tbody>
+</table>
 </div>
+<h3 id="statistical-significance">Statistical Significance</h3>
 <h2 id="conclusion">Conclusion</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
