@@ -8,17 +8,17 @@ output:
 ---
 ## Introduction
 
-I am interested in exploring this data to investigate if there is a relationship among the citizen voting age for communities of color. I am specifically interested in the Latino and Asian voting population. [explain why]. If more people study this data, one can learn to build solidarity between these communities.
+I am interested in exploring this data to investigate if there is a relationship among the citizen voting age for communities of color. I am specifically interested in the Latino and Asian voting population because thy are two of the biggest immigrant population in America. I am interested in looking at migrant voting behavior in the United States. I also find that voting behavior is more visable for other racial and ethnic groups such as Black and white people in comparison to Latinos and Asians. If more people study this data, one can learn to build solidarity between these communities.
 
 ## Data and Research Design
 
 I am exploring data from the American Community Survey from the U.S. Census in 2017 revolving around the citizen voting age population and race and ethnicity. The data set includes information regarding U.S. states, more specifically racial demographics and within it, who is eligible to vote. My research question is as follows: What is the relationship between the Latinos and Asians who are able to vote?
 
-My final project will be a observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My dependent variable is the proportion of Asians that can vote. Lastly, my independent variables are the variables that could drive the proportion of Latino and Asian voters of ethnic group voters and non-ethnic group voters.
+My final project will be a observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My independent variable is the non-citizen voting population for Latinos and the non-citizen voting population Asians. My dependent variable is the adult population for Latinos and the adult population for Asians.
 
 For my final project, I made the proportions based off of total estimates. I did this to help examine changes in the variables more easily.
 
-The CVAP proportion of Latinos and Asians is the proportion of those groups that are United States citizens 18 years of age or older that can vote. The ADU_EST represents the adult estimate of Asians and Latinos the total number of people 18 years of age or older in a group. The NON_CIT variable is the proportion of Latinos and Asians[...].
+The CVAP proportion of Latinos and Asians is the proportion of those groups that are United States citizens 18 years of age or older that can vote. The ADU_EST represents the adult estimate of Asians and Latinos the total number of people 18 years of age or older in a group. The NON_CIT variable is the proportion of Latinos and Asians that are non-citizens in the United States.
 
 
 ```{r include=FALSE}
@@ -71,6 +71,23 @@ asiandistro <- cvap_data |>
 latinodistro + asiandistro
 ```
 
+### Interpretation
+
+#### Median for CVAP Latino
+```{r}
+median(cvap_data$CVAP_prop_Latino)
+```
+
+#### Median for CVAP Asian
+```{r}
+median(cvap_data$CVAP_prop_Asian)
+```
+
+
+For the distribution plot of Latinos that can vote, the proportion ~52% appears six times in the dataset. The curve of the plot expands from ~30% to ~63%. There is an outlier at ~78%. Thus, we can expect per state, there will be between ~30-63% voting Latinos. The median expected proportion for any given state can be expected to be 44.2%.
+
+For the distribution plot of Asians that can vote, the proportion ~50% appears ten times in the dataset. The curve of the plot expands from ~30% to ~64%. There is an outlier at ~73%. Thus, we can expect per state, there will be around ~30-64% voting Asians. The median expected proportion for any given state can be expected to be 49.5%.
+
 ## Results
 
 ### Plot Summary
@@ -97,6 +114,10 @@ bivariateasian <- cvap_data |>
 bivariatelatino + bivariateasian
 ```
 
+### Interpretation
+
+Both bivariate plot summaries display linear inverse relationships. The data on both plots is close to the line with very few outliers and variates. As the proportion of non-citizens increases for both Latinos and Asians, the proportion of their voting age population is associated with a decrease.
+
 ### Multiple Regression Results
 
 ```{r}
@@ -112,7 +133,21 @@ asianmultiregresults |>
 ```
 
 
-### Statistical Significance
+### Interpretation
 
+For the Latino multiple regression model, the intercept is statistically significant. For every one percent increase in the non-citizen Latino population proportion, there's 0.92% decrease in the Latino citizen voting age population proportion holding all other variables constant. Additionally, for every one percent increase in the adult Latino population proportion, there is a 1% increase in the CVAP holding all other variables constant.
+
+
+For the Asian multiple regression model, the intercept is not statistically significant. For every one percent increase in the non-citizen Asian population proportion, there is a 0.79% increase in the Asian citizen voting age population proportion holding all other variables constant. Additionally, for every one percent increase in the adult Asian population proportion, there is a 0.15% increase in the CVAP holding all other variables constant.
+
+The Latino non-citizen voting age population proportion slightly lowers the Latino CVAP. In contrast, The Asian non-citizen voting age population proportion increases the Asian CVAP. The Latino adult population proportion increases the Latino CVAP by a 1% increase. In comparison, the Asian adult population only increases the Asian CVAP increases by 0.15% which is slightly lower than the increase in the Latino CVAP.
+
+### Causality and Confounders
+
+*significance testing code (run significance test), confounders: what could be affecting the voting age population, how much involvement is your community with civic engagement, education level, income status*
 
 ## Conclusion
+
+### Next Steps
+
+*what could other people be researching more in this direction, treating racial groups as monolith, want to consider other ethnic groups, observations are being sorted into their racial category*
