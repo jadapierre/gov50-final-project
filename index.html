@@ -1518,108 +1518,26 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <div class="d-article">
 <h2 id="introduction">Introduction</h2>
-<p>I am interested in exploring data from the American Community Survey from the U.S. Census revolving around the citizen voting age population and race and ethnicity. The data set includes information regarding U.S. states, more specifically racial demographics and within it, who is eligible to vote. My research question is as follows: What is the relationship between the Latinos and Asians who are able to vote?</p>
+<p>I am interested in exploring this data to investigate if there is a relationship among the citizen voting age for communities of color. I am specifically interested in the Latino and Asian voting population. [explain why]. If more people study this data, one can learn to build solidarity between these communities.</p>
 <h2 id="data-and-research-design">Data and Research Design</h2>
-<p>My final project will be a longitudinal observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My outcome variable is the proportion of Asians that can vote. Lastly, my control variables are the total amount of Latinos in the states and the total amount of Asians in the states.</p>
-<p>here are the definitions of the following variables I will use:</p>
-<p>CVAP_prop_Latino: The proportion of Latinos that are United States citizens 18 years of age or older that can vote.
-CVAP_prop_Asian: The proportion of Asians that are United States citizens 18 years of age or older that can vote.</p>
+<p>I am exploring data from the American Community Survey from the U.S. Census in 2017 revolving around the citizen voting age population and race and ethnicity. The data set includes information regarding U.S. states, more specifically racial demographics and within it, who is eligible to vote. My research question is as follows: What is the relationship between the Latinos and Asians who are able to vote?</p>
+<p>My final project will be a observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My dependent variable is the proportion of Asians that can vote. Lastly, my independent variables are the variables that could drive the proportion of Latino and Asian voters of ethnic group voters and non-ethnic group voters.</p>
+<p>For my final project, I made the proportions based off of total estimates. I did this to help examine changes in the variables more easily.</p>
+<p>The CVAP proportion of Latinos and Asians is the proportion of those groups that are United States citizens 18 years of age or older that can vote. The ADU_EST represents the adult estimate of Asians and Latinos the total number of people 18 years of age or older in a group. The NON_CIT variable is the proportion of Latinos and Asians[…].</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dbplyr.tidyverse.org/'>dbplyr</a></span><span class='op'>)</span></span>
-<span><span class='va'>state</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"state.csv"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>ends_with</a></span><span class='op'>(</span><span class='st'>"MOE"</span><span class='op'>)</span>,</span>
-<span>         <span class='op'>-</span><span class='va'>GEOID</span>, <span class='op'>-</span><span class='va'>LNNUMBER</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>LNTITLE</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Hispanic or Latino"</span>, <span class='st'>"Asian Alone"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>LNTITLE <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>LNTITLE</span> <span class='op'>==</span> <span class='st'>"Hispanic or Latino"</span> <span class='op'>~</span> <span class='st'>"Latino"</span>,</span>
-<span>                             <span class='va'>LNTITLE</span> <span class='op'>==</span> <span class='st'>"Asian Alone"</span> <span class='op'>~</span> <span class='st'>"Asian"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
-</div>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>cvap_data</span> <span class='op'>&lt;-</span> <span class='va'>state</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span></span>
-<span>    names_from <span class='op'>=</span> <span class='va'>LNTITLE</span>,</span>
-<span>    values_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>TOT_EST</span>, <span class='va'>ADU_EST</span>, <span class='va'>CIT_EST</span>, <span class='va'>CVAP_EST</span><span class='op'>)</span></span>
-<span>  <span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>CVAP_prop_Latino <span class='op'>=</span> <span class='va'>CVAP_EST_Latino</span><span class='op'>/</span><span class='va'>TOT_EST_Latino</span>,</span>
-<span>         CVAP_prop_Asian <span class='op'>=</span> <span class='va'>CVAP_EST_Asian</span><span class='op'>/</span><span class='va'>TOT_EST_Asian</span>,</span>
-<span>         ADU_prop_Latino <span class='op'>=</span> <span class='va'>ADU_EST_Latino</span><span class='op'>/</span><span class='va'>TOT_EST_Latino</span>,</span>
-<span>         ADU_prop_Asian <span class='op'>=</span> <span class='va'>ADU_EST_Asian</span><span class='op'>/</span><span class='va'>TOT_EST_Asian</span>,</span>
-<span>         NONCIT_prop_Latino <span class='op'>=</span> <span class='op'>(</span><span class='va'>TOT_EST_Latino</span> <span class='op'>-</span> <span class='va'>CIT_EST_Latino</span><span class='op'>)</span><span class='op'>/</span><span class='va'>TOT_EST_Latino</span>,</span>
-<span>         NONCIT_prop_Asian <span class='op'>=</span> <span class='op'>(</span><span class='va'>TOT_EST_Asian</span> <span class='op'>-</span> <span class='va'>CIT_EST_Asian</span><span class='op'>)</span><span class='op'>/</span><span class='va'>TOT_EST_Asian</span><span class='op'>)</span></span></code></pre>
-</div>
+
 </div>
 <h3 id="distribution-plot">Distribution Plot</h3>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>cvap_data</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>CVAP_prop_Asian</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"lightpink1"</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Proportion of Asians that Can Vote"</span>,</span>
-<span>       y <span class='op'>=</span> <span class='st'>"Count"</span>,</span>
-<span>       title <span class='op'>=</span> <span class='st'>"Distribution Plot of Porportion of Asians that Can Vote"</span><span class='op'>)</span></span></code></pre>
-</div>
-<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <h2 id="results">Results</h2>
 <h3 id="plot-summary">Plot Summary</h3>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>cvap_data</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>CVAP_prop_Latino</span>,</span>
-<span>                     y <span class='op'>=</span> <span class='va'>CVAP_prop_Asian</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"pink"</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Total Proportion of Latinos that Can Vote"</span>,</span>
-<span>       y <span class='op'>=</span> <span class='st'>"Total Proportion of Asians that Can Vote"</span>,</span>
-<span>       title <span class='op'>=</span> <span class='st'>"Relationship Between Latinos and Asians that Can Vote"</span><span class='op'>)</span></span></code></pre>
-</div>
-<p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
-</div>
-<h3 id="regression-results">Regression Results</h3>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>regresults</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>CVAP_prop_Asian</span> <span class='op'>~</span> <span class='va'>CVAP_prop_Latino</span>, data <span class='op'>=</span> <span class='va'>cvap_data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span></span>
-<span><span class='va'>regresults</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
-</div>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">Estimate</th>
-<th style="text-align: right;">Std. Error</th>
-<th style="text-align: right;">t value</th>
-<th style="text-align: right;">Pr(&gt;|t|)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">0.41</td>
-<td style="text-align: right;">0.05</td>
-<td style="text-align: right;">8.32</td>
-<td style="text-align: right;">0.00</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CVAP_prop_Latino</td>
-<td style="text-align: right;">0.16</td>
-<td style="text-align: right;">0.11</td>
-<td style="text-align: right;">1.48</td>
-<td style="text-align: right;">0.14</td>
-</tr>
-</tbody>
-</table>
+<p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <h3 id="multiple-regression-results">Multiple Regression Results</h3>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>multiregresults</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>cvap_data</span>, <span class='va'>CVAP_prop_Latino</span> <span class='op'>~</span> <span class='va'>ADU_prop_Latino</span> <span class='op'>+</span> <span class='va'>NONCIT_prop_Latino</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span></span>
-<span><span class='va'>multiregresults</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
-</div>
 <table>
 <thead>
 <tr class="header">
@@ -1639,18 +1557,54 @@ CVAP_prop_Asian: The proportion of Asians that are United States citizens 18 yea
 <td style="text-align: right;">0.9</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">NONCIT_prop_Latino</td>
+<td style="text-align: right;">-0.92</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">-174.88</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">ADU_prop_Latino</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">0.01</td>
 <td style="text-align: right;">102.53</td>
 <td style="text-align: right;">0.0</td>
 </tr>
+</tbody>
+</table>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
 <tr class="odd">
-<td style="text-align: left;">NONCIT_prop_Latino</td>
-<td style="text-align: right;">-0.92</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">-174.88</td>
-<td style="text-align: right;">0.0</td>
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.15</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">5.19</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NONCIT_prop_Asian</td>
+<td style="text-align: right;">-0.86</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">-51.27</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ADU_prop_Asian</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">23.28</td>
+<td style="text-align: right;">0</td>
 </tr>
 </tbody>
 </table>

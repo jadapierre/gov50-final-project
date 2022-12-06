@@ -8,20 +8,27 @@ output:
 ---
 ## Introduction
 
-I am interested in exploring data from the American Community Survey from the U.S. Census revolving around the citizen voting age population and race and ethnicity. The data set includes information regarding U.S. states, more specifically racial demographics and within it, who is eligible to vote. My research question is as follows: What is the relationship between the Latinos and Asians who are able to vote?
+I am interested in exploring this data to investigate if there is a relationship among the citizen voting age for communities of color. I am specifically interested in the Latino and Asian voting population. [explain why]. If more people study this data, one can learn to build solidarity between these communities.
 
 ## Data and Research Design
 
-My final project will be a longitudinal observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My outcome variable is the proportion of Asians that can vote. Lastly, my control variables are the total amount of Latinos in the states and the total amount of Asians in the states.
+I am exploring data from the American Community Survey from the U.S. Census in 2017 revolving around the citizen voting age population and race and ethnicity. The data set includes information regarding U.S. states, more specifically racial demographics and within it, who is eligible to vote. My research question is as follows: What is the relationship between the Latinos and Asians who are able to vote?
 
-here are the definitions of the following variables I will use:
+My final project will be a observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My dependent variable is the proportion of Asians that can vote. Lastly, my independent variables are the variables that could drive the proportion of Latino and Asian voters of ethnic group voters and non-ethnic group voters.
 
-CVAP_prop_Latino: The proportion of Latinos that are United States citizens 18 years of age or older that can vote.
-CVAP_prop_Asian: The proportion of Asians that are United States citizens 18 years of age or older that can vote.
+For my final project, I made the proportions based off of total estimates. I did this to help examine changes in the variables more easily.
 
-```{r}
+The CVAP proportion of Latinos and Asians is the proportion of those groups that are United States citizens 18 years of age or older that can vote. The ADU_EST represents the adult estimate of Asians and Latinos the total number of people 18 years of age or older in a group. The NON_CIT variable is the proportion of Latinos and Asians[...].
+
+
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center")
 library(tidyverse)
-library(dbplyr)
+library(patchwork)
 state <- read.csv("state.csv") |>
   select(!ends_with("MOE"),
          -GEOID, -LNNUMBER) |>
@@ -46,45 +53,64 @@ cvap_data <- state |>
 
 ### Distribution Plot
 
-```{r}
-cvap_data |>
+```{r fig.width=8, fig.height=4}
+latinodistro <- cvap_data |>
+  ggplot(aes(x = CVAP_prop_Latino)) +
+  geom_histogram(fill = "red") +
+  labs(x = "Proportion of Latinos that Can Vote",
+       y = "Count",
+       title = "Distribution Plot of Proportion of Latinos that Can Vote")
+
+asiandistro <- cvap_data |>
   ggplot(aes(x = CVAP_prop_Asian)) +
-  geom_histogram(fill = "lightpink1") +
+  geom_histogram(fill = "blue") +
   labs(x = "Proportion of Asians that Can Vote",
        y = "Count",
-       title = "Distribution Plot of Porportion of Asians that Can Vote")
+       title = "Distribution Plot of Proportion of Asians that Can Vote")
+
+latinodistro + asiandistro
 ```
 
 ## Results
 
 ### Plot Summary
 
-```{r}
-cvap_data |>
-  ggplot(aes(x = CVAP_prop_Latino,
+```{r fig.width=8, fig.height=4}
+bivariatelatino <- cvap_data |>
+  ggplot(aes(x = NONCIT_prop_Latino,
+                     y = CVAP_prop_Latino)) +
+  geom_point() +
+  geom_smooth(color = "red", se=FALSE, method = "lm") +
+  labs(x = "Proportion of Non-Citzens",
+       y = "Proportion of Latinos that Can Vote",
+       title = "Relationship Between Latino CVAP and Non-Citizen Populations")
+
+bivariateasian <- cvap_data |>
+  ggplot(aes(x = NONCIT_prop_Asian,
                      y = CVAP_prop_Asian)) +
   geom_point() +
-  geom_smooth(color = "pink") +
-  labs(x = "Total Proportion of Latinos that Can Vote",
-       y = "Total Proportion of Asians that Can Vote",
-       title = "Relationship Between Latinos and Asians that Can Vote")
-```
+  geom_smooth(color = "blue", se=FALSE, method = "lm") +
+  labs(x = "Proportion of Non-Citzens",
+       y = "Proportion of Asians that Can Vote",
+       title = "Relationship Between Asian CVAP and Non-Citizen Populations")
 
-### Regression Results
-
-```{r}
-regresults <- summary(lm(CVAP_prop_Asian ~ CVAP_prop_Latino, data = cvap_data))$coefficients
-regresults |>
-  knitr::kable(digits = 2)
+bivariatelatino + bivariateasian
 ```
 
 ### Multiple Regression Results
 
 ```{r}
-multiregresults <- summary(lm(data = cvap_data, CVAP_prop_Latino ~ ADU_prop_Latino + NONCIT_prop_Latino))$coefficients
-multiregresults |>
+latinomultiregresults <- summary(lm(data = cvap_data, CVAP_prop_Latino ~ NONCIT_prop_Latino + ADU_prop_Latino))$coefficients
+latinomultiregresults |>
   knitr::kable(digits = 2)
 ```
+
+```{r}
+asianmultiregresults <- summary(lm(data = cvap_data, CVAP_prop_Asian ~ NONCIT_prop_Asian + ADU_prop_Asian))$coefficients
+asianmultiregresults |>
+  knitr::kable(digits = 2)
+```
+
 
 ### Statistical Significance
 
