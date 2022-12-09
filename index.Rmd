@@ -143,9 +143,9 @@ The Latino non-citizen voting age population proportion slightly lowers the Lati
 
 ### Causality and Confounders
 
-A possible confounder that could be affecting the voting age population for both Latinos and Asians in the United States is their education level. I selected this variable because there is a strong relationship between higher education levels and voter turnout. This is affecting the results for the Latino multiple regression because [...]. It also affects the Asian multiple regression because [...].
+A possible confounder that could be affecting the voting age population for both Latinos and Asians in the United States is their education level. I selected this variable because there is a strong relationship between higher education levels and voter turnout. This is affecting the results for the Latino multiple regression because The Education Trust reports that fewer than 1 in 5 Latinos are college educated. It also affects the Asian multiple regression because Pew Research reports that "more than half of Asians ages 25 and older (54%) have a bachelor's degree or more education compared with 33% of the United States population in the same range."
 
-Another confounder is income status. I selected this variable because low-income individuals are less likely to turnout and vote due to voter suppression. This is affecting the results for the Latino multiple regression because [...]. It also affects the Asian multiple regression because [...].
+Another confounder is income status. I selected this variable because low-income individuals are less likely to turnout and vote due to voter suppression. This is affecting the results for the Latino and Asian multiple regressions because the median income status for Hispanic households as reported by the Pew Research Center is $30,400. This is different from their reported median income range for Asians which is  It also affects the Asian multiple regression because [...].
 
 ## Conclusion
 
