@@ -8,7 +8,7 @@ output:
 ---
 ## Introduction
 
-I am interested in exploring this data to investigate if there is a relationship among the citizen voting age for communities of color. I am specifically interested in the Latino and Asian voting population because thy are two of the biggest immigrant population in America. I am interested in looking at migrant voting behavior in the United States. I also find that voting behavior is more visable for other racial and ethnic groups such as Black and white people in comparison to Latinos and Asians. If more people study this data, one can learn to build solidarity between these communities.
+I am interested in exploring this data to investigate if there is a relationship among the citizen voting age for communities of color. I am specifically interested in the Latino and Asian voting population because thy are two of the biggest immigrant population in America. I am interested in looking at migrant voting behavior in the United States. I also find that voting behavior is more visible for other racial and ethnic groups such as Black and white people in comparison to Latinos and Asians. If more people study this data, one can learn to build solidarity between these communities.
 
 ## Data and Research Design
 
@@ -137,17 +137,18 @@ asianmultiregresults |>
 
 For the Latino multiple regression model, the intercept is statistically significant. For every one percent increase in the non-citizen Latino population proportion, there's 0.92% decrease in the Latino citizen voting age population proportion holding all other variables constant. Additionally, for every one percent increase in the adult Latino population proportion, there is a 1% increase in the CVAP holding all other variables constant.
 
-
 For the Asian multiple regression model, the intercept is not statistically significant. For every one percent increase in the non-citizen Asian population proportion, there is a 0.79% increase in the Asian citizen voting age population proportion holding all other variables constant. Additionally, for every one percent increase in the adult Asian population proportion, there is a 0.15% increase in the CVAP holding all other variables constant.
 
 The Latino non-citizen voting age population proportion slightly lowers the Latino CVAP. In contrast, The Asian non-citizen voting age population proportion increases the Asian CVAP. The Latino adult population proportion increases the Latino CVAP by a 1% increase. In comparison, the Asian adult population only increases the Asian CVAP increases by 0.15% which is slightly lower than the increase in the Latino CVAP.
 
 ### Causality and Confounders
 
-*significance testing code (run significance test), confounders: what could be affecting the voting age population, how much involvement is your community with civic engagement, education level, income status*
+A possible confounder that could be affecting the voting age population for both Latinos and Asians in the United States is their education level. I selected this variable because there is a strong relationship between higher education levels and voter turnout. This is affecting the results for the Latino multiple regression because [...]. It also affects the Asian multiple regression because [...].
+
+Another confounder is income status. I selected this variable because low-income individuals are less likely to turnout and vote due to voter suppression. This is affecting the results for the Latino multiple regression because [...]. It also affects the Asian multiple regression because [...].
 
 ## Conclusion
 
 ### Next Steps
 
-*what could other people be researching more in this direction, treating racial groups as monolith, want to consider other ethnic groups, observations are being sorted into their racial category*
+What other researchers could further investigate in this direction is the Latino and Asian voting population on a county level as one can draw more in depth conclusions with this data. While the observations are sorted into racial categories and an ethnicity, it would be beneficial to view the ethnic makeup of these races to prevent from treating these groups as monolith. This would be looking more at specific ethnicities such as Afro-Cubans and White Italians in the United States for example and their voting behavior.
