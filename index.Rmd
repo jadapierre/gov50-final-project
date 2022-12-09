@@ -56,14 +56,14 @@ cvap_data <- state |>
 ```{r fig.width=8, fig.height=4}
 latinodistro <- cvap_data |>
   ggplot(aes(x = CVAP_prop_Latino)) +
-  geom_histogram(fill = "red") +
+  geom_histogram(fill = "skyblue") +
   labs(x = "Proportion of Latinos that Can Vote",
        y = "Count",
        title = "Distribution Plot of Proportion of Latinos that Can Vote")
 
 asiandistro <- cvap_data |>
   ggplot(aes(x = CVAP_prop_Asian)) +
-  geom_histogram(fill = "blue") +
+  geom_histogram(fill = "maroon") +
   labs(x = "Proportion of Asians that Can Vote",
        y = "Count",
        title = "Distribution Plot of Proportion of Asians that Can Vote")
@@ -97,7 +97,7 @@ bivariatelatino <- cvap_data |>
   ggplot(aes(x = NONCIT_prop_Latino,
                      y = CVAP_prop_Latino)) +
   geom_point() +
-  geom_smooth(color = "red", se=FALSE, method = "lm") +
+  geom_smooth(color = "skyblue", se=FALSE, method = "lm") +
   labs(x = "Proportion of Non-Citzens",
        y = "Proportion of Latinos that Can Vote",
        title = "Relationship Between Latino CVAP and Non-Citizen Populations")
@@ -106,7 +106,7 @@ bivariateasian <- cvap_data |>
   ggplot(aes(x = NONCIT_prop_Asian,
                      y = CVAP_prop_Asian)) +
   geom_point() +
-  geom_smooth(color = "blue", se=FALSE, method = "lm") +
+  geom_smooth(color = "maroon", se=FALSE, method = "lm") +
   labs(x = "Proportion of Non-Citzens",
        y = "Proportion of Asians that Can Vote",
        title = "Relationship Between Asian CVAP and Non-Citizen Populations")
