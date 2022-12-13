@@ -51,48 +51,39 @@ cvap_data <- state |>
          NONCIT_prop_Asian = (TOT_EST_Asian - CIT_EST_Asian)/TOT_EST_Asian)
 ```
 
-### Distribution Plot
+### Distribution Plots
 
 ```{r fig.width=8, fig.height=4}
 latinodistro <- cvap_data |>
   ggplot(aes(x = CVAP_prop_Latino)) +
-  geom_histogram(fill = "skyblue") +
-  labs(x = "Proportion of Latinos that Can Vote",
-       y = "Count",
-       title = "Distribution Plot of Proportion of Latinos that Can Vote")
+  geom_histogram(aes(y = ..count../sum(..count..)), fill = "skyblue") +
+  labs(x = "Latino CVAP Proportion",
+       y = "Proportion",
+       title = "Distribution of State Level Latino CVAP")
 
 asiandistro <- cvap_data |>
   ggplot(aes(x = CVAP_prop_Asian)) +
-  geom_histogram(fill = "maroon") +
-  labs(x = "Proportion of Asians that Can Vote",
-       y = "Count",
-       title = "Distribution Plot of Proportion of Asians that Can Vote")
+  geom_histogram(aes(y = ..count../sum(..count..)), fill = "maroon") +
+  labs(x = "Asian CVAP Proportion",
+       y = "Proportion",
+       title = "Distribution of State Level Asian CVAP")
 
 latinodistro + asiandistro
 ```
 
-### Interpretation
+The median expected proportion for any given state can be expected to be 44.2%. The distribution of the outcome ranges from ~30% to ~63%. Thus, we can expect per state, there will be between ~30-63% Latino citizens of voting age.
 
-#### Median for CVAP Latino
-```{r}
-median(cvap_data$CVAP_prop_Latino)
-```
+The median expected proportion for any given state can be expected to be 49.5%. The distribution of the outcome ranges from ~30% to ~64%. Thus, we can expect per state, there will be around ~30-64% Asians of voting age.
 
-#### Median for CVAP Asian
-```{r}
-median(cvap_data$CVAP_prop_Asian)
-```
-
-
-For the distribution plot of Latinos that can vote, the proportion ~52% appears six times in the dataset. The curve of the plot expands from ~30% to ~63%. There is an outlier at ~78%. Thus, we can expect per state, there will be between ~30-63% voting Latinos. The median expected proportion for any given state can be expected to be 44.2%.
-
-For the distribution plot of Asians that can vote, the proportion ~50% appears ten times in the dataset. The curve of the plot expands from ~30% to ~64%. There is an outlier at ~73%. Thus, we can expect per state, there will be around ~30-64% voting Asians. The median expected proportion for any given state can be expected to be 49.5%.
+While there appears to be no huge difference in the range, there is a slight difference in medians.
 
 ## Results
 
+The previous section looked a range of state CVAP estimates and displays how the outcome varies among the main explanatory variable.
+
 ### Plot Summary
 
-```{r fig.width=8, fig.height=4}
+```{r fig.width=12, fig.height=4}
 bivariatelatino <- cvap_data |>
   ggplot(aes(x = NONCIT_prop_Latino,
                      y = CVAP_prop_Latino)) +
@@ -116,7 +107,9 @@ bivariatelatino + bivariateasian
 
 ### Interpretation
 
-Both bivariate plot summaries display linear inverse relationships. The data on both plots is close to the line with very few outliers and variates. As the proportion of non-citizens increases for both Latinos and Asians, the proportion of their voting age population is associated with a decrease.
+Both bivariate plot summaries display a negative relationship between the proportion non-citizens and their voting age populations. The range for the relationship between Latino CVAP and non-citizen populations is around 0.05-0.35. It is mainly concentrated around 0.15-0.34. The range for the relationship between Asian CVAP and non-citizen populations is around 0.14-0.57. It is mainly concentrated around 0.25-0.45.
+
+The data on both plots is close to the line with very few outliers and variates. As the proportion of non-citizens increases for both Latinos and Asians, the proportion of their voting age population is associated with a decrease.
 
 ### Multiple Regression Results
 
@@ -135,19 +128,24 @@ asianmultiregresults |>
 
 ### Interpretation
 
-For the Latino multiple regression model, the intercept is statistically significant. For every one percent increase in the non-citizen Latino population proportion, there's 0.92% decrease in the Latino citizen voting age population proportion holding all other variables constant. Additionally, for every one percent increase in the adult Latino population proportion, there is a 1% increase in the CVAP holding all other variables constant.
+For the Latino multiple regression model, the intercept is statistically significant. On average for every one percent increase in the non-citizen Latino population proportion, there's 0.92% decrease in the Latino citizen voting age population proportion holding all other variables constant. Additionally, on average for every one percent increase in the adult Latino population proportion, there is a 1% increase in the CVAP holding all other variables constant.
 
-For the Asian multiple regression model, the intercept is not statistically significant. For every one percent increase in the non-citizen Asian population proportion, there is a 0.79% increase in the Asian citizen voting age population proportion holding all other variables constant. Additionally, for every one percent increase in the adult Asian population proportion, there is a 0.15% increase in the CVAP holding all other variables constant.
+For the Asian multiple regression model, the intercept is not statistically significant. On average for every one percent increase in the non-citizen Asian population proportion, there is a 0.79% increase in the Asian citizen voting age population proportion holding all other variables constant. Additionally, on average for every one percent increase in the adult Asian population proportion, there is a 0.15% increase in the CVAP holding all other variables constant.
 
-The Latino non-citizen voting age population proportion slightly lowers the Latino CVAP. In contrast, The Asian non-citizen voting age population proportion increases the Asian CVAP. The Latino adult population proportion increases the Latino CVAP by a 1% increase. In comparison, the Asian adult population only increases the Asian CVAP increases by 0.15% which is slightly lower than the increase in the Latino CVAP.
+The Latino non-citizen voting age population proportion is associated with a lower Latino CVAP. In contrast, The Asian non-citizen voting age population proportion is associated with a smaller reduction the Asian CVAP. The Latino adult population proportion increases the Latino CVAP by a 1% increase. In comparison, the Asian adult population increases the Asian CVAP by 0.15%, which is slightly lower than the increase in the Latino CVAP.
 
 ### Causality and Confounders
 
-A possible confounder that could be affecting the voting age population for both Latinos and Asians in the United States is their education level. I selected this variable because there is a strong relationship between higher education levels and voter turnout. This is affecting the results for the Latino multiple regression because The Education Trust reports that fewer than 1 in 5 Latinos are college educated. It also affects the Asian multiple regression because Pew Research reports that "more than half of Asians ages 25 and older (54%) have a bachelor's degree or more education compared with 33% of the United States population in the same range."
+A possible confounder that could be affecting the voting age population for both Latinos and Asians in the United States is their education level. This could be a confounder because there is a strong relationship between higher education levels and voter turnout. This can affect the results for the Latino multiple regression because The Education Trust reports that fewer than 1 in 5 Latinos are college educated. It can also affect the Asian multiple regression because Pew Research reports that "more than half of Asians ages 25 and older (54%) have a bachelor's degree or more education compared with 33% of the United States population in the same range."
 
-Another confounder is income status. I selected this variable because low-income individuals are less likely to turnout and vote due to voter suppression. This is affecting the results for the Latino and Asian multiple regressions because the median income status for Hispanic households as reported by the Pew Research Center is $30,400. This is different from their reported median income range for Asians which is  It also affects the Asian multiple regression because [...].
+Another confounder is income status. This could be a confounder because low-income individuals are less likely to turnout and vote due to voter suppression. This can affect the results for the Latino and Asian multiple regressions because the median income status for Hispanic households as reported by the Pew Research Center is $30,400. This is different from their reported median income range for Asians which is $51,288.
+
+One cannot control for the effects of the possible confounders on the explanatory variable and the outcome. We cannot control education level as some individuals may come from under-funded schools while others may come from over resources schools. We cannot control income-level as some individuals may face systemic barriers that prevents them from having a high paying job. These two possible confounders affects both the explanatory and the outcome as it results in percent increases and decreases.
 
 ## Conclusion
+
+-Summarize the results (1 sent.), describe the relationship of interest
+-A limitation of study (1 sent.)
 
 ### Next Steps
 
