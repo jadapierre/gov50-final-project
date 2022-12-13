@@ -132,7 +132,7 @@ For the Latino multiple regression model, the intercept is statistically signifi
 
 For the Asian multiple regression model, the intercept is not statistically significant. On average for every one percent increase in the non-citizen Asian population proportion, there is a 0.79% increase in the Asian citizen voting age population proportion holding all other variables constant. Additionally, on average for every one percent increase in the adult Asian population proportion, there is a 0.15% increase in the CVAP holding all other variables constant.
 
-The Latino non-citizen voting age population proportion is associated with a lower Latino CVAP. In contrast, The Asian non-citizen voting age population proportion is associated with a smaller reduction the Asian CVAP. The Latino adult population proportion increases the Latino CVAP by a 1% increase. In comparison, the Asian adult population increases the Asian CVAP by 0.15%, which is slightly lower than the increase in the Latino CVAP.
+The Latino non-citizen voting age population proportion is associated with a lower Latino CVAP. In contrast, The Asian non-citizen voting age population proportion is associated with a smaller reduction the Asian CVAP. The Latino adult population proportion increases the Latino CVAP by a 1% increase. In comparison, the regression table suggests that, on average, holding all other covariates constant, a one percent increase in the Asian adult population is associated with a 0.79% increase in the Asian CVAP population.
 
 ### Causality and Confounders
 
