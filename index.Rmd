@@ -1,7 +1,7 @@
 ---
 title: "Latino and Asian Populations in the United States"
 author: Jada Pierre
-description: "Researching the relationship between the Latinos and Asians who are able to vote and their populations."
+description: "Researching the relationship between the Latinos and Asians who are able to vote and their populations in the United States."
 output:
   distill::distill_article:
     self_contained: false
