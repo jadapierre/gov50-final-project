@@ -14,7 +14,7 @@ I am interested in exploring this data to investigate if there is a relationship
 
 I am exploring data from the American Community Survey from the U.S. Census in 2017 revolving around the citizen voting age population and race and ethnicity. The data set includes information regarding U.S. states, more specifically racial demographics and within it, who is eligible to vote. My research question is as follows: What is the relationship between the Latinos and Asians who are able to vote and their population?
 
-My final project will be a observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My independent variable is the non-citizen voting population for Latinos and the non-citizen voting population Asians. My dependent variable is the adult population for Latinos and the adult population for Asians.
+My final project will be an observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My independent variable is the non-citizen voting population for Latinos and the non-citizen voting population for Asians. My dependent variable is the adult population for Latinos and the adult population for Asians.
 
 For my final project, I made the proportions based off of total estimates. I did this to help examine changes in the variables more easily.
 
