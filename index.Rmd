@@ -1,7 +1,7 @@
 ---
-title: "Gov 50 Final Project"
+title: "Latino and Asian Populations in the United States"
 author: Jada Pierre
-description: "My final project"
+description: "Researching the relationship between the Latinos and Asians who are able to vote and their populations."
 output:
   distill::distill_article:
     self_contained: false
@@ -12,7 +12,7 @@ I am interested in exploring this data to investigate if there is a relationship
 
 ## Data and Research Design
 
-I am exploring data from the American Community Survey from the U.S. Census in 2017 revolving around the citizen voting age population and race and ethnicity. The data set includes information regarding U.S. states, more specifically racial demographics and within it, who is eligible to vote. My research question is as follows: What is the relationship between the Latinos and Asians who are able to vote?
+I am exploring data from the American Community Survey from the U.S. Census in 2017 revolving around the citizen voting age population and race and ethnicity. The data set includes information regarding U.S. states, more specifically racial demographics and within it, who is eligible to vote. My research question is as follows: What is the relationship between the Latinos and Asians who are able to vote and their population?
 
 My final project will be a observational study. To investigate the relationship, my explanatory variable is the proportion of Latinos that can vote. My independent variable is the non-citizen voting population for Latinos and the non-citizen voting population Asians. My dependent variable is the adult population for Latinos and the adult population for Asians.
 
@@ -140,8 +140,7 @@ A possible confounder that could be affecting the voting age population for both
 
 ## Conclusion
 
--Summarize the results (1 sent.), describe the relationship of interest
--A limitation of study (1 sent.)
+My research displays the relationship between the non-citizen voting population for Latinos and the non-citizen voting population Asians and the adult population for Latinos and the adult population for Asians. Both relationships of interest show a correlation between these two variables. A limitation of this study is that the ethnicities within the Latino and Asian groups remain unknown.
 
 ### Next Steps
 
