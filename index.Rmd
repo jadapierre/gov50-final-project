@@ -56,7 +56,7 @@ cvap_data <- state |>
 ```{r fig.width=8, fig.height=4}
 latinodistro <- cvap_data |>
   ggplot(aes(x = CVAP_prop_Latino)) +
-  geom_histogram(aes(y = ..count../sum(..count..)), fill = "skyblue") +
+  geom_histogram(aes(y = ..count../sum(..count..)), fill = "skyblue1") +
   labs(x = "Latino CVAP Proportion",
        y = "Proportion",
        title = "Distribution of State Level Latino CVAP")
@@ -88,7 +88,7 @@ bivariatelatino <- cvap_data |>
   ggplot(aes(x = NONCIT_prop_Latino,
                      y = CVAP_prop_Latino)) +
   geom_point() +
-  geom_smooth(color = "skyblue", se=FALSE, method = "lm") +
+  geom_smooth(color = "skyblue1", se=FALSE, method = "lm") +
   labs(x = "Proportion of Non-Citzens",
        y = "Proportion of Latinos that Can Vote",
        title = "Relationship Between Latino CVAP and Non-Citizen Populations")
