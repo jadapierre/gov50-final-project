@@ -79,9 +79,9 @@ While there appears to be no huge difference in the range, there is a slight dif
 
 ## Results
 
-The previous section looked a range of state CVAP estimates and displays how the outcome varies among the main explanatory variable.
+The previous section looked a range of state CVAP estimates and displays how the outcome varies among the main explanatory variable. The following section displays plot summaries and multiple regression results for both Latinos and Asians.
 
-### Plot Summary
+### Plot Summaries
 
 ```{r fig.width=12, fig.height=4}
 bivariatelatino <- cvap_data |>
