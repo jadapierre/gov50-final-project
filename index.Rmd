@@ -75,11 +75,11 @@ The median expected proportion for any given state can be expected to be 44.2%. 
 
 The median expected proportion for any given state can be expected to be 49.5%. The distribution of the outcome ranges from ~30% to ~64%. Thus, we can expect per state, there will be around ~30-64% Asians of voting age.
 
-While there appears to be no huge difference in the range, there is a slight difference in medians.
+While there appears to be no significance difference in the range, there is a slight difference in medians.
 
 ## Results
 
-The previous section looked a range of state CVAP estimates and displays how the outcome varies among the main explanatory variable. The following section displays plot summaries and multiple regression results for both Latinos and Asians.
+The previous section looked at a range of state CVAP estimates and displays how the outcome varies among the main explanatory variable. The following section displays plot summaries and multiple regression results for both Latinos and Asians.
 
 ### Plot Summaries
 
@@ -136,12 +136,12 @@ The Latino adult population proportion increases the Latino CVAP by a 1% increas
 
 ### Causality and Confounders
 
-A possible confounder that could be affecting the voting age population for both Latinos and Asians in the United States is their age. For example, in order to be eligible to vote, one must be a citizen. To be a U.S. citizen through naturalization, one must be at least 18 years or older by the time they submit their application. Moreover, age can possibly affect the non-citizen voting population for Latinos and Asians and the adult population for Latinos and Asians. It could possibly be affecting both variables age is a factor that determines if one is eligible to apply for citizenship or not. Therefore, one cannot control for age as a possible confounder.
+A possible confounder that could be affecting the voting age population for both Latinos and Asians in the United States is their age. For example, in order to be eligible to vote, one must be a citizen. To be a U.S. citizen through naturalization, one must be at least 18 years or older by the time they submit their application. Moreover, age can possibly affect the non-citizen voting population for Latinos and Asians and the adult population for Latinos and Asians. It could possibly be affecting both variables because age is a factor that determines if one is eligible to apply for citizenship or not. Therefore, one cannot control for age as a possible confounder.
 
 ## Conclusion
 
-My research displays the relationship between the non-citizen voting population for Latinos and Asians and the non-citizen voting population the adult population for Latinos and the adult population for Asians. As demonstrated by the regression results, both relationships of interest show a positive correlation between these two variables. Holding all variables constant, the Latino adult population proportion is associated with a positive increase of the Latino CVAP, specifically by a 1% increase. In comparison, the Asian is associated with Asian adult population is associated with a 0.79% increase in the Asian CVAP population. While both relationships are positive, the Latino CVAP saw a greater increase. A limitation of this study is that the ethnicities within the Latino and Asian groups remain unknown. 
+My research displays the relationship between the non-citizen voting population for Latinos and for Asians and the adult population for and for Asians. As demonstrated by the regression results, both relationships of interest show a positive correlation between these two variables. Holding all variables constant, the Latino adult population proportion is associated with a positive increase of the Latino CVAP, specifically by a 1% increase. In comparison, the Asian is associated with Asian adult population is associated with a 0.79% increase in the Asian CVAP population. While both relationships are positive, the Latino CVAP saw a greater increase. A limitation of this study is that the ethnicities within the Latino and Asian groups remain unknown. 
 
 ### Next Steps
 
-What other researchers could further investigate in this direction is the Latino and Asian voting population on a county level as one can draw more in depth conclusions with this data. While the observations are sorted into racial categories and an ethnicity, it would be beneficial to view the ethnic makeup of these races to prevent from treating these groups as monolith. This would be looking more at specific ethnicities such as Afro-Cubans and white Italians in the United States for example and their voting behavior.
+What other researchers could further investigate in this direction is the Latino and Asian voting population on a county level as one can draw more in depth conclusions with this data. While the observations are sorted into racial categories and an ethnicity, it would be beneficial to view the ethnic makeup of these races to prevent from treating these groups as monolith. This would be looking more at specific ethnicities such as Afro-Cubans and white Italians in the United States for example, and their voting behavior.
